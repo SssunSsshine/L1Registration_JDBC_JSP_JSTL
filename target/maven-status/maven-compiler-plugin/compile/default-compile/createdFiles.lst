@@ -1,0 +1,4 @@
+com\vsu\repository\UserRepository.class
+com\vsu\repository\ConnectionFactory.class
+com\vsu\controllers\UserController.class
+com\vsu\entities\User.class
