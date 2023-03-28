@@ -34,7 +34,7 @@
                     </fieldset>
 
                     <fieldset class="form-group">
-                        <label>Password</label> <input type="text"
+                        <label>Password</label> <input type="password"
                                 class="form-control"
 						value="<c:out value='${user.password}' />"
                             name="password" required="required">

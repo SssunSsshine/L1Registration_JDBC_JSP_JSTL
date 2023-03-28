@@ -66,7 +66,7 @@
                 <fieldset class="form-group">
 					<label>User Phone</label> <input type="tel"
 						value="<c:out value='${user.phone}' />" class="form-control"
-						name="phone" placeholder="8999xxxxxxx" required="required">
+						name="phone" placeholder="89103449422" required="required">
 				</fieldset>
 
 				<fieldset class="form-group">
