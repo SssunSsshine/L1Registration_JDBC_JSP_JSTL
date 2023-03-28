@@ -58,21 +58,21 @@
 				</fieldset>
 
 				<fieldset class="form-group">
-                    <label>User Birthday</label> <input type="text"
+                    <label>User Birthday</label> <input type="date"
                         value="<c:out value='${user.birthday}' />" class="form-control"
-                        name="birthday" required="required">
+                        name="birthday" placeholder="yyyy-mm-dd" required="required">
                 </fieldset>
 
                 <fieldset class="form-group">
-					<label>User Phone</label> <input type="text"
+					<label>User Phone</label> <input type="tel"
 						value="<c:out value='${user.phone}' />" class="form-control"
-						name="phone" required="required">
+						name="phone" placeholder="8999xxxxxxx" required="required">
 				</fieldset>
 
 				<fieldset class="form-group">
-					<label>User Email</label> <input type="text"
+					<label>User Email</label> <input type="email"
 						value="<c:out value='${user.email}' />" class="form-control"
-						name="email" required="required">
+						name="email" placeholder="x@x.x" required="required">
 				</fieldset>
 
 				<fieldset class="form-group">
@@ -80,7 +80,9 @@
 						value="<c:out value='${user.password}' />" class="form-control"
 						name="password">
 				</fieldset>
-
+                <c:if test="${error != null}">
+                    <font color="red"> <c:out value='${error}' /></font>
+                </c:if>
                 <div class="text-center">
 				    <button type="submit" class="btn btn-success">Save</button>
                 </div>

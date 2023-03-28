@@ -17,6 +17,7 @@ import java.sql.SQLException;
 @WebServlet("/")
 public class UserController extends HttpServlet {
     private UserRepository userRepository;
+
     @Override
     public void init(ServletConfig config) throws ServletException {
         userRepository = new UserRepository(new ConnectionFactory());
@@ -30,7 +31,7 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getServletPath();
-        switch (action){
+        switch (action) {
             case "/new":
                 showNewForm(req, resp);
                 break;
@@ -42,7 +43,7 @@ public class UserController extends HttpServlet {
                 }
                 break;
             case "/insert":
-                insertUser(req,resp);
+                insertUser(req, resp);
                 break;
             case "/edit":
                 showEditForm(req, resp);
@@ -60,30 +61,26 @@ public class UserController extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         User user = userRepository.selectByEmail(login);
-        if(user == null){
-            user = userRepository.selectByPhone(login);
-            if(user == null){
-                RequestDispatcher dispatcher = req.getRequestDispatcher("user-login.jsp");
-                req.setAttribute("error", "User with this login does not exist");
-                dispatcher.forward(req,resp);
-                return;
-            }
+        if (user == null) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("user-login.jsp");
+            req.setAttribute("error", "User with this login does not exist");
+            dispatcher.forward(req, resp);
+            return;
         }
-        if(user.getPassword().equals(password)){
+        if (user.getPassword().equals(password)) {
             RequestDispatcher dispatcher = req.getRequestDispatcher("user-page.jsp");
             req.setAttribute("user", user);
-            dispatcher.forward(req,resp);
-        }
-        else {
+            dispatcher.forward(req, resp);
+        } else {
             RequestDispatcher dispatcher = req.getRequestDispatcher("user-login.jsp");
             req.setAttribute("error", "Wrong password");
-            dispatcher.forward(req,resp);
+            dispatcher.forward(req, resp);
         }
     }
 
     private void showNewForm(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("user-form.jsp");
-        dispatcher.forward(req,resp);
+        dispatcher.forward(req, resp);
     }
 
     private void insertUser(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
@@ -95,21 +92,29 @@ public class UserController extends HttpServlet {
         String password = req.getParameter("password");
 
         User user = new User(surname, name, birthday, email, phone, password);
-        userRepository.insert(user);
+        try {
+            userRepository.insert(user);
+            user = userRepository.selectByEmail(email);
+        } catch (Exception e) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("user-form.jsp");
+            req.setAttribute("error", e.toString());
+            dispatcher.forward(req, resp);
+            return;
+        }
         RequestDispatcher dispatcher = req.getRequestDispatcher("user-page.jsp");
         req.setAttribute("user", user);
         dispatcher.forward(req, resp);
     }
 
-    private void showEditForm(HttpServletRequest req, HttpServletResponse resp){
+    private void showEditForm(HttpServletRequest req, HttpServletResponse resp) {
         Long id = Long.parseLong(req.getParameter("id"));
         User existingUser;
-        try{
+        try {
             existingUser = userRepository.selectById(id);
             RequestDispatcher dispatcher = req.getRequestDispatcher("user-form.jsp");
             req.setAttribute("user", existingUser);
-            dispatcher.forward(req,resp);
-        }catch (Exception e){
+            dispatcher.forward(req, resp);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -123,11 +128,14 @@ public class UserController extends HttpServlet {
         String phone = req.getParameter("phone");
         String password = req.getParameter("password");
 
-        User user = new User(id,surname,name,birthday,email,phone,password);
+        User user = new User(id, surname, name, birthday, email, phone, password);
         try {
             userRepository.updateByID(user);
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (Exception e) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("user-form.jsp");
+            req.setAttribute("error", e.toString());
+            dispatcher.forward(req, resp);
+            return;
         }
 
         RequestDispatcher dispatcher = req.getRequestDispatcher("user-page.jsp");
@@ -137,6 +145,6 @@ public class UserController extends HttpServlet {
 
     private void showUserPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RequestDispatcher dispatcher = req.getRequestDispatcher("user-page.jsp");
-        dispatcher.forward(req,resp);
+        dispatcher.forward(req, resp);
     }
 }

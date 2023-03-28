@@ -48,9 +48,9 @@
 				</fieldset>
 
 				<fieldset class="form-group">
-                    <label>User Birthday</label> <input type="text"
+                    <label>User Birthday</label> <input type="date"
                         value="<c:out value='${user.birthday}' />" class="form-control"
-                        name="birthday" required="required" readonly>
+                        name="birthday" placeholder="yyyy-mm-dd" required="required" readonly>
                 </fieldset>
 
                 <fieldset class="form-group">

@@ -27,10 +27,10 @@
 			    <form action="check" method="post">
 			    </c:if>
                     <fieldset class="form-group">
-                        <label>Login</label> <input type="text"
+                        <label>Login</label> <input type="email"
                                 class="form-control"
 						    value="<c:out value='${user.email}' />"
-                            name="login" required="required">
+                            name="login" placeholder="email" required="required">
                     </fieldset>
 
                     <fieldset class="form-group">
