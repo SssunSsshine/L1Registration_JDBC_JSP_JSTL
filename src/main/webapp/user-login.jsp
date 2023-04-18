@@ -23,20 +23,16 @@
 	<div class="container col-md-5">
 		<div class="card">
 			<div class="card-body">
-			    <c:if test="${user == null}">
-			    <form action="check" method="post">
-			    </c:if>
+			    <form action="sign-up" method="post">
                     <fieldset class="form-group">
                         <label>Login</label> <input type="email"
                                 class="form-control"
-						    value="<c:out value='${user.email}' />"
                             name="login" placeholder="email" required="required">
                     </fieldset>
 
                     <fieldset class="form-group">
                         <label>Password</label> <input type="password"
                                 class="form-control"
-						value="<c:out value='${user.password}' />"
                             name="password" required="required">
                     </fieldset>
                     <c:if test="${error != null}">

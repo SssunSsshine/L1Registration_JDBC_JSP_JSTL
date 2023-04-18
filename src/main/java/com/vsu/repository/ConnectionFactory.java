@@ -1,19 +1,23 @@
 package com.vsu.repository;
 
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-    static {
+    public Connection getConnection() {
         try {
-            DriverManager.registerDriver(new org.postgresql.Driver());
-        } catch (SQLException e) {
+            InitialContext cxt = new InitialContext();
+            DataSource ds = (DataSource) cxt.lookup("java:/comp/env/jdbc/postgres");
+            if (ds == null) {
+                throw new RuntimeException("Data source not found");
+            }
+            return ds.getConnection();
+        } catch (NamingException | SQLException e) {
             throw new RuntimeException(e);
         }
-    }
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:postgresql://localhost:5432/ForJava",
-                                        "postgres", "sasha2003");
     }
 }

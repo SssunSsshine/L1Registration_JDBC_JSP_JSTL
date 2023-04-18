@@ -23,24 +23,25 @@
 	<div class="container col-md-5">
 		<div class="card">
 			<div class="card-body">
-                <fieldset class="form-group">
-					<label>Login</label> <input type="text"
-					        class="form-control"
-						name="login" required="required">
-				</fieldset>
+			    <form action="sign-up" method="post">
+                    <fieldset class="form-group">
+                        <label>Login</label> <input type="email"
+                                class="form-control"
+                            name="login" placeholder="email" required="required">
+                    </fieldset>
 
-				<fieldset class="form-group">
-					<label>Password</label> <input type="text"
-					        class="form-control"
-						name="password" required="required">
-				</fieldset>
-				<c:if test="${error != null}">
-                	<font color="red"> <c:out value='${error}' /></font>
-                </c:if>
-				<div class="text-center">
-					<a href="<%=request.getContextPath()%>/check" class="btn btn-success" role="button">Sign in</a>
-					<a href="<%=request.getContextPath()%>/new" class="btn btn-success" role="button">Sign up</a>
-				<div class="text-center"></div>
+                    <fieldset class="form-group">
+                        <label>Password</label> <input type="password"
+                                class="form-control"
+                            name="password" required="required">
+                    </fieldset>
+                    <c:if test="${error != null}">
+                        <font color="red"> <c:out value='${error}' /></font>
+                    </c:if>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-success">Sign in</button>
+                        <a href="<%=request.getContextPath()%>/new" class="btn btn-success" role="button">Sign up</a>
+                    <div class="text-center"></div>
 				</form>
 			</div>
 		</div>

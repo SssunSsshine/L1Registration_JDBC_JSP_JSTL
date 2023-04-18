@@ -1,4 +1,12 @@
 D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\repository\ConnectionFactory.java
-D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\controllers\UserController.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\controllers\UserPage.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\exception\ValidationException.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\controllers\UserForm.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\controllers\SignUp.java
 D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\entities\User.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\controllers\DeleteUser.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\controllers\InsertUser.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\service\UserService.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\controllers\UpdateUser.java
+D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\controllers\EditUser.java
 D:\User\unic\Java\L1Registration_JDBC_JSP_JSTL\src\main\java\com\vsu\repository\UserRepository.java
