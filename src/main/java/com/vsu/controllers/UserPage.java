@@ -13,9 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/user-page")
+@WebServlet("/user/user-page")
 public class UserPage extends HttpServlet {
-    public static final String JSP_PATH = "/WEB-INF/jsp/";
+    public static final String JSP_PATH = "/jsp/";
     private UserService userService;
 
     @Override

@@ -17,7 +17,7 @@
 			<div>
 				<a href="<%=request.getContextPath()%>" class="navbar-brand"> User Registration Application </a>
 			</div>
-            <a href="<%=request.getContextPath()%>" class="btn btn-danger" role="button"  style="display: block; margin-left: auto;">Sign Out</a>
+            <a href="<%=request.getContextPath()%>/sign-out" class="btn btn-danger" role="button"  style="display: block; margin-left: auto;">Sign Out</a>
 		</nav>
 	</header>
 	<br>
@@ -67,6 +67,7 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-success">Edit</button>
+                     <a href="<%=request.getContextPath()%>/delete?id=${user.id}" class="btn btn-danger" role="button">Delete</a>
                 <div class="text-center"></div>
 
 				</form>

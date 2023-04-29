@@ -1,10 +1,11 @@
 package com.vsu.repository;
 
+import com.vsu.exception.DBException;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
@@ -17,7 +18,7 @@ public class ConnectionFactory {
             }
             return ds.getConnection();
         } catch (NamingException | SQLException e) {
-            throw new RuntimeException(e);
+            throw new DBException(e);
         }
     }
 }

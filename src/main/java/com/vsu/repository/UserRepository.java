@@ -1,6 +1,7 @@
 package com.vsu.repository;
 
 import com.vsu.entities.User;
+import com.vsu.exception.DBException;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.Connection;
@@ -28,7 +29,7 @@ public class UserRepository {
                     "SET surname_user=?, name_user=?, birthday_user=?, phone_user=?, email_user=?, password_user=? " +
                     "WHERE id_user = ?";
 
-    private ConnectionFactory connectionFactory;
+    private final ConnectionFactory connectionFactory;
 
     public UserRepository(ConnectionFactory connectionFactory) {
         this.connectionFactory = connectionFactory;
@@ -44,22 +45,10 @@ public class UserRepository {
             }
             return null;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DBException(e);
         }
     }
 
-    @NotNull
-    private static User getUser(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getLong("id_user"));
-        user.setName(resultSet.getString("name_user"));
-        user.setSurname(resultSet.getString("surname_user"));
-        user.setBirthday((resultSet.getDate("birthday_user")).toString());
-        user.setEmail(resultSet.getString("email_user"));
-        user.setPhone(resultSet.getString("phone_user"));
-        user.setPassword(resultSet.getString("password_user"));
-        return user;
-    }
 
     public User selectByEmail(String email) {
         try (Connection connection = connectionFactory.getConnection()) {
@@ -79,7 +68,7 @@ public class UserRepository {
         int countUpdate = 0;
         try (Connection connection = connectionFactory.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(INSERT_QUERY);
-            setUserParamstoStatement(user, statement);
+            setUserParamsToStatement(user, statement);
             countUpdate = statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -104,7 +93,7 @@ public class UserRepository {
         int countUpdate = 0;
         try (Connection connection = connectionFactory.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY);
-            setUserParamstoStatement(user, statement);
+            setUserParamsToStatement(user, statement);
             statement.setLong(7, user.getId());
             countUpdate = statement.executeUpdate();
         } catch (SQLException e) {
@@ -113,7 +102,7 @@ public class UserRepository {
         return countUpdate;
     }
 
-    private void setUserParamstoStatement(User user, PreparedStatement statement) throws SQLException {
+    private void setUserParamsToStatement(User user, PreparedStatement statement) throws SQLException {
         statement.setString(1, user.getSurname());
         statement.setString(2, user.getName());
         statement.setDate(3, Date.valueOf(user.getBirthday()));
@@ -121,4 +110,18 @@ public class UserRepository {
         statement.setString(5, user.getEmail());
         statement.setString(6, user.getPassword());
     }
+
+    @NotNull
+    private User getUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getLong("id_user"));
+        user.setName(resultSet.getString("name_user"));
+        user.setSurname(resultSet.getString("surname_user"));
+        user.setBirthday((resultSet.getDate("birthday_user")).toString());
+        user.setEmail(resultSet.getString("email_user"));
+        user.setPhone(resultSet.getString("phone_user"));
+        user.setPassword(resultSet.getString("password_user"));
+        return user;
+    }
+
 }

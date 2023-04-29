@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 
 public class UserService {
 
+    private static final int MIN_COUNT_UPDATE = 1;
     private final UserRepository userRepository;
 
     private static final Logger LOGGER = Logger.getLogger(UserService.class.getName());
@@ -31,25 +32,18 @@ public class UserService {
     }
 
     public User insertUser(User user) {
-        if (userRepository.insert(user) < 1) {
-            LOGGER.log(Level.INFO,"User with id {0} is not inserted", user.getId());
+        if (userRepository.insert(user) < MIN_COUNT_UPDATE) {
+            LOGGER.log(Level.INFO, "User with id {0} is not inserted", user.getId());
             return null;
         } else {
             return userRepository.selectByEmail(user.getEmail());
         }
     }
 
-    public void deleteUser(String id) {
-        try {
-            Long idL = Long.parseLong(id);
-            if (userRepository.deleteById(idL) < 1) {
-                LOGGER.log(Level.INFO, "User with id {0} is not deleted", id);
-            }
-        } catch (NumberFormatException e) {
-            LOGGER.log(Level.WARNING,"ID {0} has wrong type", id);
-            throw new ValidationException("Bad ID");
+    public void deleteUser(Long id) {
+        if (userRepository.deleteById(id) < MIN_COUNT_UPDATE) {
+            LOGGER.log(Level.INFO, "User with id {0} is not deleted", id);
         }
-
     }
 
     public User selectByIdUser(String id) {
@@ -57,15 +51,15 @@ public class UserService {
             Long idL = Long.parseLong(id);
             return userRepository.selectById(idL);
         } catch (NumberFormatException e) {
-            LOGGER.log(Level.WARNING,"ID {0} has wrong type", id);
+            LOGGER.log(Level.WARNING, "ID {0} has wrong type", id);
             throw new ValidationException("Bad ID");
         }
 
     }
 
     public void updateByID(User user) {
-        if(userRepository.updateByID(user) < 1){
-            LOGGER.log(Level.INFO,"User with id {} is not updated", user.getId());
+        if (userRepository.updateByID(user) < MIN_COUNT_UPDATE) {
+            LOGGER.log(Level.INFO, "User with id {} is not updated", user.getId());
         }
     }
 }

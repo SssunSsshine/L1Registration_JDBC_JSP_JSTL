@@ -20,10 +20,11 @@
 		</nav>
 	</header>
 	<br>
+
 	<div class="container col-md-5">
 		<div class="card">
 			<div class="card-body">
-			    <form action="sign-up" method="post">
+			    <form action="user/sign-up" method="post">
                     <fieldset class="form-group">
                         <label>Login</label> <input type="email"
                                 class="form-control"
@@ -40,7 +41,7 @@
                     </c:if>
                     <div class="text-center">
                         <button type="submit" class="btn btn-success">Sign in</button>
-                        <a href="<%=request.getContextPath()%>/new" class="btn btn-success" role="button">Sign up</a>
+                        <a href="<%=request.getContextPath()%>/user/new" class="btn btn-success" role="button">Sign up</a>
                     <div class="text-center"></div>
 				</form>
 			</div>

@@ -1,6 +1,5 @@
 package com.vsu.controllers;
 
-import com.vsu.entities.User;
 import com.vsu.repository.ConnectionFactory;
 import com.vsu.repository.UserRepository;
 import com.vsu.service.UserService;
@@ -14,9 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet("/user/insert")
-public class InsertUser extends HttpServlet {
-    private static final String JSP_PATH = "/jsp/";
+@WebServlet("/user")
+public class UserWelcome extends HttpServlet {
+    public static final String JSP_PATH = "/jsp/";
     private UserService userService;
 
     @Override
@@ -31,24 +30,7 @@ public class InsertUser extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String name = req.getParameter("name");
-        String surname = req.getParameter("surname");
-        String birthday = req.getParameter("birthday");
-        String email = req.getParameter("email");
-        String phone = req.getParameter("phone");
-        String password = req.getParameter("password");
-
-        User user;
-        try {
-            user = userService.insertUser(new User(surname, name, birthday, email, phone, password));
-        } catch (Exception e) {
-            RequestDispatcher dispatcher = req.getRequestDispatcher(JSP_PATH + "user-form.jsp");
-            req.setAttribute("error", e.toString());
-            dispatcher.forward(req, resp);
-            return;
-        }
-        RequestDispatcher dispatcher = req.getRequestDispatcher(JSP_PATH + "user-page.jsp");
-        req.setAttribute("user", user);
+        RequestDispatcher dispatcher = req.getRequestDispatcher( JSP_PATH + "user-login.jsp");
         dispatcher.forward(req, resp);
     }
 }

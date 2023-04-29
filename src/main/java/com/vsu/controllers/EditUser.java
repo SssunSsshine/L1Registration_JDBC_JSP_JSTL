@@ -11,9 +11,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/edit")
+@WebServlet("/user/edit")
 public class EditUser extends HttpServlet {
-    private static final String JSP_PATH = "/WEB-INF/jsp/";
+    private static final String JSP_PATH = "/jsp/";
     private UserService userService;
 
     @Override
